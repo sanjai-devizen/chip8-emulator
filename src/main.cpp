@@ -64,7 +64,7 @@ void draw_graphics(SDL_Renderer* renderer, Chip8& chip8){
     for(int y=0; y<32; y++){
         for(int x=0; x<64; x++){
             if(chip8.display[x + (y*64)] == 1){
-                SDL_Rect rect = {x*SCALE, (31-y)*SCALE, SCALE, SCALE};
+                SDL_Rect rect = {x*SCALE, (y)*SCALE, SCALE, SCALE};
                 SDL_RenderFillRect(renderer, &rect);
             }
         }
@@ -83,7 +83,7 @@ void handle_input(Chip8& chip8, bool& running){
             for(int i=0; i<16; i++){
                 if(event.key.keysym.sym == keymap[i]) chip8.key[i] = 1;
             }
-        }
+        } 
         if(event.type == SDL_KEYUP){
             for(int i=0; i<16; i++){
                 if(event.key.keysym.sym == keymap[i]) chip8.key[i] = 0;
@@ -138,11 +138,14 @@ int main(int argc, char** argv){
         handle_input(chip8, running);
         for(int i=0; i<10; i++){
             chip8.emulate_cycle();
-            SDL_Delay(16); // 60 FPS with 16ms per frame
         }
 
         beeping = (chip8.get_sound_timer() > 0);
         draw_graphics(renderer, chip8);
+
+        chip8.handle_timers();
+
+        SDL_Delay(16);
     }
     if(audio_device != 0) SDL_CloseAudioDevice(audio_device);
     SDL_DestroyRenderer(renderer);
