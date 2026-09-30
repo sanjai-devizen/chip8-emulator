@@ -28,8 +28,7 @@ Chip8::Chip8(){
     initialise();
 }
 
-
-
+//Added Save state and restore state of cpu components and stack
 void Chip8::save_state(const std::string& filename) {
     std::ofstream file(filename, std::ios::binary);
     if (!file.is_open()) {
@@ -37,7 +36,7 @@ void Chip8::save_state(const std::string& filename) {
         return;
     }
 
-    // Write all critical state variables to the file
+    // Writing all critical state variables to the file
     file.write((char*)memory, sizeof(memory));
     file.write((char*)v, sizeof(v));
     file.write((char*)&index, sizeof(index));
@@ -59,7 +58,7 @@ bool Chip8::load_state(const std::string& filename) {
         return false;
     }
 
-    // Read the bytes back into the variables in the EXACT same order
+    // Reading the bytes back into the variables in the EXACT same order
     file.read((char*)memory, sizeof(memory));
     file.read((char*)v, sizeof(v));
     file.read((char*)&index, sizeof(index));
@@ -72,7 +71,7 @@ bool Chip8::load_state(const std::string& filename) {
     
     file.close();
     
-    // Force a screen redraw so the loaded graphics appear immediately
+    // Forcing a screen redraw so the loaded graphics appear immediately
     draw_flag = true; 
     std::cout << "State loaded from " << filename << std::endl;
     return true;
