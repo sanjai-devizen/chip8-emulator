@@ -7,9 +7,13 @@
 class Chip8{
     public:
         Chip8();
-        void handle_timers();
-        void load_rom(const std::string& filename); // To load a game file
-        void emulate_cycle(); // To execute one instruction
+        void load_rom(const std::string& filename);
+        void emulate_cycle();
+        void handle_timers(); // Assuming you added this from the previous fix
+
+        // Add these two lines:
+        void save_state(const std::string& filename);
+        bool load_state(const std::string& filename);
         bool draw_flag; // When we need to redraw the screen;
         uint8_t display[64*32];
         uint8_t key[16]; // Keyboard of 16 keys
