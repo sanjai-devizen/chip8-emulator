@@ -176,4 +176,4 @@ AI Usage:
       3. To understand chip-8 emulator code
       4. AI-assisted hints were used to identify potential bugs, which were then understood, verified, and corrected through our own analysis of the CHIP-8 architecture and behavior.
 
-#---------END OF README FILE-----------
+# ---------END OF README FILE-----------
