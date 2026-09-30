@@ -9,9 +9,10 @@ class Chip8{
         Chip8();
         void load_rom(const std::string& filename);
         void emulate_cycle();
-        void handle_timers(); // Assuming you added this from the previous fix
+        //handling timers seperately from emulate cycle
+        void handle_timers(); 
 
-        // Add these two lines:
+        // Adding a save state and restore state option
         void save_state(const std::string& filename);
         bool load_state(const std::string& filename);
         bool draw_flag; // When we need to redraw the screen;
