@@ -15,6 +15,8 @@
 const int SCALE = 10; // Each pixel is 10x10 screen pixels
 const int WIDTH = 64*SCALE;
 const int HEIGHT = 32*SCALE;
+int ins_per_cyc = 20;
+Chip8 chip8;
 
 // Keyboard mapping
 uint8_t keymap[16] = {
@@ -79,6 +81,23 @@ void handle_input(Chip8& chip8, bool& running){
         if(event.type == SDL_QUIT) running = false;
         if(event.type == SDL_KEYDOWN){
             if(event.key.keysym.sym == SDLK_ESCAPE) running = false;
+            else if (event.key.keysym.sym == SDLK_z) {
+                if (ins_per_cyc > 1){
+                    ins_per_cyc--;
+                    std::cout<<"CPU: ins per cyc "<<ins_per_cyc<<std::endl;
+                }
+            }
+            else if (event.key.keysym.sym == SDLK_v) {
+                if (ins_per_cyc < 20){
+                    ins_per_cyc++;
+                    std::cout<<"CPU: ins per cyc "<<ins_per_cyc<<std::endl;
+                }
+            } else if(event.key.keysym.sym == SDLK_i){
+                chip8.save_state("Save_State.bin");
+            }
+            else if(event.key.keysym.sym == SDLK_o){
+                chip8.load_state("Save_State.bin");
+            }
             // Check which Chip-8 key was pressed
             for(int i=0; i<16; i++){
                 if(event.key.keysym.sym == keymap[i]) chip8.key[i] = 1;
@@ -130,13 +149,13 @@ int main(int argc, char** argv){
         return 1;
     }
 
-    Chip8 chip8;
+    
     chip8.load_rom(argv[1]);
     
     bool running = true;
     while(running){
         handle_input(chip8, running);
-        for(int i=0; i<10; i++){
+        for(int i=0; i<ins_per_cyc; i++){
             chip8.emulate_cycle();
         }
 
@@ -150,6 +169,18 @@ int main(int argc, char** argv){
     if(audio_device != 0) SDL_CloseAudioDevice(audio_device);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+
+    
+
+    // std::remove returns 0 on success, non-zero on failure
+    if (std::remove("Save_State.bin") == 0) {
+        std::cout << "File deleted successfully." << std::endl;
+    } else {
+        std::cerr << "Error deleting file (maybe it doesn't exist?)" << std::endl;
+    }
+
+    
+
     SDL_Quit();
 
     return 0;
