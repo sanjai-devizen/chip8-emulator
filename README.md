@@ -1,4 +1,4 @@
-# ALGO AVENGERS
+# ALGO AVENGERS (Working of corrected chip8-emulation attached below)
 # ----------Intial Commit(Orginial Readme)--------
 # Chip-8 Emulator
 
