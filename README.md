@@ -1,3 +1,4 @@
+# ----------Intial Commit(Orginial Readme)--------
 # Chip-8 Emulator
 
 A Chip-8 emulator built in C++ with SDL2 graphics and audio support.
@@ -136,3 +137,43 @@ Simple square wave generation at 440 Hz (musical note A) plays when `sound_timer
 ## Resources
 
 - [Chip-8 ROMs Archive](https://github.com/kripod/chip8-roms)
+
+
+
+# ---------Original Readme END--------
+
+
+# ---------BUGS CORRCETED AND ADDED FEATURES--------
+Development Approach
+
+This project was developed by first understanding the overall CHIP-8 architecture and the responsibilities of each component, followed by implementing, testing, and debugging the emulator incrementally.
+
+During development, external references and tools were used to clarify unfamiliar concepts and understand the expected behavior of the CHIP-8 system. The implementation was then reviewed and corrected based on the CHIP-8 specification and our understanding of the underlying architecture.
+
+Particular attention was given to:
+
+Opcode decoding and execution
+
+Memory and register management
+
+Stack and program-counter behavior
+
+Timer synchronization
+
+Sprite rendering and collision detection
+
+Keyboard input handling
+
+SDL2 rendering and audio
+
+CPU and display timing
+
+Rather than relying solely on existing implementations, we verified the behavior of each component through debugging and testing, and made the necessary corrections to ensure the emulator follows the expected CHIP-8 behavior.
+
+AI Usage:
+      1. To understand what is chip-8 
+      2. To Understand the architecture implementation of Chip-8 
+      3. To understand chip-8 emulator code
+      4. AI-assisted hints were used to identify potential bugs, which were then understood, verified, and corrected through our own analysis of the CHIP-8 architecture and behavior.
+
+#---------END OF README FILE-----------
