@@ -28,6 +28,56 @@ Chip8::Chip8(){
     initialise();
 }
 
+
+
+void Chip8::save_state(const std::string& filename) {
+    std::ofstream file(filename, std::ios::binary);
+    if (!file.is_open()) {
+        std::cerr << "Failed to create save state file." << std::endl;
+        return;
+    }
+
+    // Write all critical state variables to the file
+    file.write((char*)memory, sizeof(memory));
+    file.write((char*)v, sizeof(v));
+    file.write((char*)&index, sizeof(index));
+    file.write((char*)&pc, sizeof(pc));
+    file.write((char*)stack, sizeof(stack));
+    file.write((char*)&sp, sizeof(sp));
+    file.write((char*)&delay_timer, sizeof(delay_timer));
+    file.write((char*)&sound_timer, sizeof(sound_timer));
+    file.write((char*)display, sizeof(display));
+    
+    file.close();
+    std::cout << "State saved to " << filename << std::endl;
+}
+
+bool Chip8::load_state(const std::string& filename) {
+    std::ifstream file(filename, std::ios::binary);
+    if (!file.is_open()) {
+        std::cerr << "No save state found." << std::endl;
+        return false;
+    }
+
+    // Read the bytes back into the variables in the EXACT same order
+    file.read((char*)memory, sizeof(memory));
+    file.read((char*)v, sizeof(v));
+    file.read((char*)&index, sizeof(index));
+    file.read((char*)&pc, sizeof(pc));
+    file.read((char*)stack, sizeof(stack));
+    file.read((char*)&sp, sizeof(sp));
+    file.read((char*)&delay_timer, sizeof(delay_timer));
+    file.read((char*)&sound_timer, sizeof(sound_timer));
+    file.read((char*)display, sizeof(display));
+    
+    file.close();
+    
+    // Force a screen redraw so the loaded graphics appear immediately
+    draw_flag = true; 
+    std::cout << "State loaded from " << filename << std::endl;
+    return true;
+}
+
 void Chip8::initialise(){
     pc = 0x200;
     opcode = 0;
@@ -44,6 +94,8 @@ void Chip8::initialise(){
     delay_timer = 0;
     sound_timer = 0;
     draw_flag = false;
+
+
 }
 
 void Chip8::load_fonts(){
