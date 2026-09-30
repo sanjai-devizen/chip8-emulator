@@ -59,10 +59,10 @@ void audio_callback(void* userdata, uint8_t* stream, int len){
 
 void draw_graphics(SDL_Renderer* renderer, Chip8& chip8){
     // Clear screen
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_SetRenderDrawColor(renderer, 155, 188, 15, 255);
     SDL_RenderClear(renderer);
     // Drawing white pixels
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_SetRenderDrawColor(renderer, 15, 56, 15, 255);
     for(int y=0; y<32; y++){
         for(int x=0; x<64; x++){
             if(chip8.display[x + (y*64)] == 1){
