@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Define the compiler
 CC = gcc
 
@@ -35,3 +36,23 @@ debug: $(TARGET)
 .PHONY: clean
 clean:
 	rm -f $(OBJS) $(TARGET)
+=======
+CXX = g++
+CXXFLAGS = -std=c++17 -Wall -Wextra -O2
+TARGET = chip8
+SOURCES = src/main.cpp src/chip8.cpp
+OBJECTS = $(SOURCES:.cpp=.o)
+
+all: $(TARGET)
+
+$(TARGET): $(OBJECTS)
+	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJECTS) -lSDL2
+
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+clean:
+	rm -f $(OBJECTS) $(TARGET)
+
+.PHONY: all clean
+>>>>>>> 04cd164bedc83d956fc520476f555327fd42fa50
